@@ -1,13 +1,13 @@
 -- By pepes, for scriptblox.com
 -- https://scriptblox.com/u/pepes
 if game.PlaceId == 9872472334 then
-   loadstring(game:HttpGet(("https://raw.githubusercontent.com/Hungtu2121/Ardrakhubv7/main/Evade), true))()
+   loadstring(game:HttpGet(("https://raw.githubusercontent.com/Hungtu2121/Ardrakhubv7/main/Evade"), true))()
 end
 
 if game.PlaceId == 10662542523 then
-   loadstring(game:HttpGet(("https://raw.githubusercontent.com/PepesGH1/stuff/main/evade.lua"), true))()
+   loadstring(game:HttpGet(("https://raw.githubusercontent.com/PepesGH1/stuff/main/evade"), true))()
 end
 
 if game.PlaceId == 10324347967 then
-   loadstring(game:HttpGet(("https://raw.githubusercontent.com/PepesGH1/stuff/main/evade.lua"), true))()
+   loadstring(game:HttpGet(("https://raw.githubusercontent.com/PepesGH1/stuff/main/evade"), true))()
 end
