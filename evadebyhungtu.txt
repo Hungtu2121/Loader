@@ -417,6 +417,13 @@ local Tabs = {
     MainTab = Window:AddTab({ Title = "Main", Icon = "" }),
 }
 
+Tabs.MainTab:AddButton({
+        Title = "Water No dagame",
+        Description = "",
+        Callback = function(Value)
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Hungtu2121/Loader/main/no.txt"))() 
+        end
+    })
     
    
     local Toggle = Tabs.MainTab:AddToggle("MyToggle", {Title = "No Cammera Shake", Default = false })
