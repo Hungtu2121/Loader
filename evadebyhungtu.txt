@@ -36,7 +36,7 @@ local Window = Fluent:CreateWindow({
 			NoCameraShake = false,
 			Speed = 1450,
 			Jump = 3,
-			reviveTime = 3,
+			reviveTime = 2,
 		}
 
 		local FindAI = function()
@@ -411,11 +411,90 @@ local Tabs = {
     NguTab = Window:AddTab({ Title = "Server", Icon = "" }),
 }
 
+Tabs.NguTab:AddButton({
+        Title = "Rejoin Server",
+        Description = "",
+        Callback = function(Value)
+        local ts = game:GetService("TeleportService")
+
+local p = game:GetService("Players").LocalPlayer
+
+
+
+ts:TeleportToPlaceInstance(game.PlaceId, game.JobId, p)
+Fluent:Notify({
+        Title = "",
+        Content = "Rejoin Server",
+        SubContent = "5s", -- Optional
+        Duration = 5 -- Set to nil to make the notification not disappear
+    })
+        end
+    })
+    
+    Tabs.NguTab:AddButton({
+        Title = "Water No dagame",
+        Description = "",
+        Callback = function(Value)
+        local Player = game.Players.LocalPlayer    
+local Http = game:GetService("HttpService")
+local TPS = game:GetService("TeleportService")
+local Api = "https://games.roblox.com/v1/games/"
+
+local _place,_id = game.PlaceId, game.JobId
+-- Asc for lowest player count, Desc for highest player count
+local _servers = Api.._place.."/servers/Public?sortOrder=Asc&limit=10"
+function ListServers(cursor)
+   local Raw = game:HttpGet(_servers .. ((cursor and "&cursor="..cursor) or ""))
+   return Http:JSONDecode(Raw)
+end
+
+time_to_wait = 120 --seconds
+
+-- choose a random server and join every 2 minutes
+while wait(time_to_wait) do
+   --freeze player before teleporting to prevent synapse crash?
+   Player.Character.HumanoidRootPart.Anchored = true
+   local Servers = ListServers()
+   local Server = Servers.data[math.random(1,#Servers.data)]
+   TPS:TeleportToPlaceInstance(_place, Server.id, Player)
+end
+Fluent:Notify({
+        Title = "",
+        Content = "Hop Server",
+        SubContent = "5s", -- Optional
+        Duration = 5 -- Set to nil to make the notification not disappear
+    })
+        end
+    })
+
     
     --   Dark   Light  Aqua Amethyst
 local Tabs = {
     MainTab = Window:AddTab({ Title = "Main", Icon = "" }),
 }
+
+Tabs.MainTab:AddButton({
+        Title = "Q Teleport",
+        Description = "",
+        Callback = function()
+        plr = game.Players.LocalPlayer 
+				hum = plr.Character.HumanoidRootPart 
+				mouse = plr:GetMouse()
+				mouse.KeyDown:connect(function(key)
+					if key == "q" then
+						if mouse.Target then
+							hum.CFrame = CFrame.new(mouse.Hit.x, mouse.Hit.y + 5, mouse.Hit.z)
+						end
+					end
+				end)
+				Fluent:Notify({
+        Title = "",
+        Content = "",
+        SubContent = "", -- Optional
+        Duration = 1 -- Set to nil to make the notification not disappear
+    })
+        end
+    })
 
 Tabs.MainTab:AddButton({
         Title = "Water No dagame",
@@ -465,7 +544,7 @@ Tabs.MicsTab:AddParagraph({
         Content = "                 "
     })
 
-local Toggle = Tabs.MicsTab:AddToggle("Toggle", {Title = "Auto Farm", Default = false })
+local Toggle = Tabs.MicsTab:AddToggle("Toggle", {Title = "Auto Farm Money", Default = false })
 
     Toggle:OnChanged(function(Value)
         Settings.moneyfarm = Value
@@ -478,6 +557,12 @@ local Toggle = Tabs.MicsTab:AddToggle("Toggle", {Title = "AFK Farm", Default = f
     end)
     
     local Toggle = Tabs.MicsTab:AddToggle("MyToggle", {Title = "Auto Respawn", Default = false })
+
+    Toggle:OnChanged(function(Value)
+        Settings.AutoRespawn = Value
+    end)
+    
+    local Toggle = Tabs.MicsTab:AddToggle("MyToggle", {Title = "Fast Respawn", Default = false })
 
     Toggle:OnChanged(function(Value)
         Settings.AutoRespawn = Value
@@ -495,6 +580,14 @@ Tabs.MicsTab:AddButton({
 local Tabs = {
     ExtraTab = Window:AddTab({ Title = "Extra", Icon = "" }),
 }
+
+Tabs.ExtraTab:AddButton({
+        Title = "Test Emote",
+        Description = "",
+        Callback = function(Value)
+        game:GetService("ReplicatedStorage").Events.UI.Purchase:InvokeServer("Emotes", "Test")
+        end
+    })
 
 Tabs.ExtraTab:AddButton({
         Title = "Chat Spy",
