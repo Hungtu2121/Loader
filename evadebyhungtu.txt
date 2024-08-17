@@ -417,32 +417,6 @@ local Tabs = {
     MainTab = Window:AddTab({ Title = "Main", Icon = "" }),
 }
 
-local Toggle = Tabs.MainTab:AddToggle("MyToggle", {Title = "Water no dagame", Default = false })
-
-    Toggle:OnChanged(function(Value)
-        game.workspace.Water:Destroy()
-        game.workspace.BoatStages.NormalStages.CaveStage1.Water:Destroy()
-        game.workspace.BoatStages.NormalStages.CaveStage2.Water:Destroy()
-        game.workspace.BoatStages.NormalStages.CaveStage3.Water:Destroy()
-        game.workspace.BoatStages.NormalStages.CaveStage4.Water:Destroy()
-        game.workspace.BoatStages.NormalStages.CaveStage5.Water:Destroy()
-        game.workspace.BoatStages.NormalStages.CaveStage6.Water:Destroy()
-        game.workspace.BoatStages.NormalStages.CaveStage7.Water:Destroy()
-        game.workspace.BoatStages.NormalStages.CaveStage8.Water:Destroy()
-        game.workspace.BoatStages.NormalStages.CaveStage9.Water:Destroy()
-        game.workspace.BoatStages.NormalStages.ForestStage.Water:Destroy()
-        game.workspace.BoatStages.NormalStages.TheEnd.Water:Destroy()
-        game.workspace.BoatStages.OtherStages.CircusStage.Water:Destroy()
-        game.workspace.BoatStages.OtherStages.CrystalCaveStage.Water:Destroy()
-        game.workspace.BoatStages.OtherStages.EnchantedForestStage.Water:Destroy()
-        game.workspace.BoatStages.OtherStages.FlowerStage.Water:Destroy()
-        game.workspace.BoatStages.OtherStages.LightHouseStage.Water:Destroy()
-        game.workspace.BoatStages.OtherStages.SciFiCityStage.Water:Destroy()
-        game.workspace.BoatStages.OtherStages.ShipWreckedStage.Water:Destroy()
-        game.workspace.BoatStages.OtherStages.TrenchStage.Water:Destroy()
-        game.workspace.BoatStages.OtherStages.VaporwaveStage.Water:Destroy()
-      print("POV: U DONT HAVE AC IN UR GAME LLL")
-    end)
     
    
     local Toggle = Tabs.MainTab:AddToggle("MyToggle", {Title = "No Cammera Shake", Default = false })
