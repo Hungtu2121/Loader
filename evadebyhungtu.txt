@@ -1,0 +1,784 @@
+local WorkspacePlayers = game:GetService("Workspace").Game.Players
+local Players = game:GetService('Players')
+local localplayer = Players.LocalPlayer
+local GuiService = game:GetService("GuiService")
+local Light = game:GetService("Lighting")
+local Fluent = loadstring(game:HttpGet("https://raw.githubusercontent.com/Hungtu2121/ArDrakxHub/main/Fluent%20(2).txt"))()
+game.StarterGui:SetCore("SendNotification", {
+                            Title = "ArDark Hub", 
+                            Text = "Loading" ,
+                            Icon = "rbxassetid://18943519595",
+                            Duration = 5
+                        })
+game:GetService("ReplicatedStorage").Events.Respawn:FireServer()
+wait(4)
+local Window = Fluent:CreateWindow({
+    Title = "ArDrak Hub | Evade",
+    SubTitle = "| V7.1  | https://discord.com/invite/t67WY4Ep",
+    TabWidth = 95,
+    Size = UDim2.fromOffset(450, 360),
+    Acrylic = false,
+    Theme = "Darker",
+    MinimizeKey = Enum.KeyCode.F15
+})
+
+--functions and shit
+		getgenv().money = true
+		getgenv().revivedie = true
+		getgenv().autowistle = true
+		getgenv().autochat = true
+		getgenv().AutoDrink = true
+		getgenv().NoCameraShake = tru3
+		getgenv().Settings = {
+			moneyfarm = false,
+			afkfarm = false,
+			clip = fase,
+			NoCameraShake = false,
+			Speed = 1450,
+			Jump = 3,
+			reviveTime = 3,
+		}
+
+		local FindAI = function()
+			for _,v in pairs(WorkspacePlayers:GetChildren()) do
+				if not Players:FindFirstChild(v.Name) then
+					return v
+				end
+			end
+		end
+
+		local GetDownedPlr = function()
+			for i,v in pairs(WorkspacePlayers:GetChildren()) do
+				if v:GetAttribute("Downed") then
+					return v
+				end
+			end
+		end
+
+		local revive = function()
+			local downedplr = GetDownedPlr()
+			if downedplr ~= nil and downedplr:FindFirstChild('HumanoidRootPart') then
+				task.spawn(function()
+					while task.wait() do
+						if localplayer.Character then
+							workspace.Game.Settings:SetAttribute("ReviveTime", 2.2)
+							localplayer.Character:FindFirstChild('HumanoidRootPart').CFrame = CFrame.new(downedplr:FindFirstChild('HumanoidRootPart').Position.X, downedplr:FindFirstChild('HumanoidRootPart').Position.Y + 3, downedplr:FindFirstChild('HumanoidRootPart').Position.Z)
+							task.wait()
+							game:GetService("ReplicatedStorage").Events.Revive.RevivePlayer:FireServer(tostring(downedplr), false)
+							task.wait(4.5)
+							game:GetService("ReplicatedStorage").Events.Revive.RevivePlayer:FireServer(tostring(downedplr), true)
+							game:GetService("ReplicatedStorage").Events.Revive.RevivePlayer:FireServer(tostring(downedplr), true)
+							game:GetService("ReplicatedStorage").Events.Revive.RevivePlayer:FireServer(tostring(downedplr), true)
+							break
+						end
+					end
+				end)
+			end
+		end
+
+		task.spawn(function()
+			while task.wait() do
+				if Settings.AutoRespawn then
+					if localplayer.Character and localplayer.Character:GetAttribute("Downed") then
+						game:GetService("ReplicatedStorage").Events.Respawn:FireServer()
+					end
+				end
+
+				if Settings.NoCameraShake then
+					localplayer.PlayerScripts.CameraShake.Value = CFrame.new(0,0,0) * CFrame.new(0,0,0)
+				end
+				if Settings.moneyfarm then
+					if localplayer.Character and localplayer.Character:GetAttribute("Downed") then
+						game:GetService("ReplicatedStorage").Events.Respawn:FireServer()
+						task.wait(3)
+					else
+						revive()
+						task.wait(1)
+					end
+				end
+				if Settings.moneyfarm == false and Settings.afkfarm and localplayer.Character:FindFirstChild('HumanoidRootPart') ~= nil then
+					localplayer.Character:FindFirstChild('HumanoidRootPart').CFrame = CFrame.new(6007, 7005, 8005)
+				end
+			end
+		end)
+
+		function camerashake()
+			while NoCameraShake == true do task.wait()
+				localplayer.PlayerScripts.CameraShake.Value = CFrame.new(0,0,0) * CFrame.new(0,0,0)
+			end
+		end
+
+		function autodrink()
+			while AutoDrink == true do
+				local ohString1 = "Cola"
+				game:GetService("ReplicatedStorage").Events.UseUsable:FireServer(ohString1)
+				wait(6)
+			end
+		end
+
+		function SpamChat()
+			while autochat == true do
+				local ohString1 = "Ardrak hub on top🤓👆"
+				local ohString2 = "All"
+				game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(ohString1, ohString2)
+				wait(1)
+			end
+		end
+
+		function autowistlefunction()
+			while autowistle == true do
+				local ohString1 = "Whistle"
+				local ohBoolean2 = true
+				game:GetService("Players").LocalPlayer.PlayerScripts.Events.KeybindUsed:Fire(ohString1, ohBoolean2)
+				game:GetService("ReplicatedStorage").Events.Whistle:FireServer()
+				wait(5)
+			end
+		end
+
+		function god()
+			while revivedie == true do
+				game:GetService("ReplicatedStorage").Events.Respawn:FireServer()
+				wait()
+			end
+		end
+
+		function dofullbright()
+			Light.Ambient = Color3.new(1, 1, 1)
+			Light.ColorShift_Bottom = Color3.new(1, 1, 1)
+			Light.ColorShift_Top = Color3.new(1, 1, 1)
+			game.Lighting.FogEnd = 100000
+			game.Lighting.FogStart = 0
+			game.Lighting.ClockTime = 14
+			game.Lighting.Brightness = 2
+			game.Lighting.GlobalShadows = false
+		end
+
+		function freemoney()
+			while money == true do
+				local ohString1 = "Free money <font color=\"rgb(100,255,100)\">($99999)</font>"
+				game:GetService("Players").LocalPlayer.PlayerGui.HUD.Messages.Use:Fire(ohString1)
+				wait(5)
+			end
+		end
+
+game:GetService("RunService").RenderStepped:Connect(function()
+			pcall(function()
+				if game.Players.LocalPlayer.Character.Humanoid.MoveDirection.Magnitude > 0 then
+					game.Players.LocalPlayer.Character:TranslateBy(game.Players.LocalPlayer.Character.Humanoid.MoveDirection * TargetWalkspeed/100)
+				end
+			end)
+		end)
+		
+		local old
+		old = hookmetamethod(game,"__namecall",newcclosure(function(self,...)
+			local Args = {...}
+			local method = getnamecallmethod()
+			if tostring(self) == 'Communicator' and method == "InvokeServer" and Args[1] == "update" then
+				return Settings.Speed, Settings.Jump 
+			end
+			return old(self,...)
+		end))
+		
+		local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+
+local flyingEnabled = false -- Set to true to start flying, false to stop flying
+local flySpeed = 100 -- Adjust fly speed as needed
+
+-- Function to start flying
+local function startFlying()
+    local bodyGyro = Instance.new("BodyGyro")
+    local bodyVelocity = Instance.new("BodyVelocity")
+
+    bodyGyro.P = 9e4
+    bodyGyro.maxTorque = Vector3.new(9e4, 9e4, 9e4)
+    bodyGyro.cframe = humanoidRootPart.CFrame
+    bodyGyro.Parent = humanoidRootPart
+
+    bodyVelocity.velocity = Vector3.new(0, 0, 0)
+    bodyVelocity.maxForce = Vector3.new(9e4, 9e4, 9e4)
+    bodyVelocity.Parent = humanoidRootPart
+
+    while flyingEnabled do
+        local moveDirection = Vector3.new()
+        local camera = workspace.CurrentCamera
+        local cameraCFrame = camera.CFrame
+
+        -- WASD controls for movement
+        if player.Character.Humanoid.MoveDirection.Magnitude > 0 then
+            moveDirection = cameraCFrame:VectorToWorldSpace(Vector3.new(player.Character.Humanoid.MoveDirection.X, player.Character.Humanoid.MoveDirection.Y, player.Character.Humanoid.MoveDirection.Z))
+        end
+
+        bodyVelocity.velocity = moveDirection * flySpeed
+        bodyGyro.cframe = cameraCFrame
+
+        wait() -- Wait for the next frame
+    end
+
+    -- Clean up after flying is disabled
+    bodyGyro:Destroy()
+    bodyVelocity:Destroy()
+end
+
+-- Function to toggle flying on or off
+local function toggleFlying(state)
+    flyingEnabled = state
+    if flyingEnabled then
+        startFlying()
+    end
+end
+
+-- Example usage
+toggleFlying()
+		
+		local Players=game:GetService("Players");
+  local Player=Players.LocalPlayer;
+  --local Mouse=Player:GetMouse();
+  local Workspace=game:GetService("Workspace");
+  local CurrentCam=Workspace.CurrentCamera;
+  local require=require;
+
+
+     -- Wait for game to load
+repeat task.wait() until game:IsLoaded();
+
+-- Temp fix for ROBLOX turning off highlights
+if setfflag then setfflag("OutlineSelection", "true") end
+
+-- Services
+local ReplicatedStorage = game:GetService("ReplicatedStorage");
+local Workspace = game:GetService("Workspace");
+local VirtualInputManager = game:GetService("VirtualInputManager");
+                local WorkspacePlayers = game:GetService("Workspace").Game.Players
+        local Players = game:GetService('Players')
+        local localplayer = Players.LocalPlayer
+        local GuiService = game:GetService("GuiService")
+            local Light = game:GetService("Lighting")
+            local Player = Players.LocalPlayer;
+            
+  local AI_ESP = false;
+        
+        function Simple_Create(base, name, trackername, studs)
+    local bb = Instance.new('BillboardGui', game.CoreGui)
+    bb.Adornee = base
+    bb.ExtentsOffset = Vector3.new(0,1,0)
+    bb.AlwaysOnTop = true
+    bb.Size = UDim2.new(0,6,0,6)
+    bb.StudsOffset = Vector3.new(0,1,0)
+    bb.Name = trackername
+
+    local frame = Instance.new('Frame', bb)
+    frame.ZIndex = 10
+    frame.BackgroundTransparency = 0.3
+    frame.Size = UDim2.new(1,0,1,0)
+    frame.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+
+    local txtlbl = Instance.new('TextLabel', bb)
+    txtlbl.ZIndex = 10
+    txtlbl.BackgroundTransparency = 1
+    txtlbl.Position = UDim2.new(0,0,0,-48)
+    txtlbl.Size = UDim2.new(1,0,10,0)
+    txtlbl.Font = 'ArialBold'
+    txtlbl.FontSize = 'Size12'
+    txtlbl.Text = name
+    txtlbl.TextStrokeTransparency = 0.5
+    txtlbl.TextColor3 = Color3.fromRGB(255, 0, 0)
+
+    local txtlblstud = Instance.new('TextLabel', bb)
+    txtlblstud.ZIndex = 10
+    txtlblstud.BackgroundTransparency = 1
+    txtlblstud.Position = UDim2.new(0,0,0,-35)
+    txtlblstud.Size = UDim2.new(1,0,10,0)
+    txtlblstud.Font = 'ArialBold'
+    txtlblstud.FontSize = 'Size12'
+    txtlblstud.Text = tostring(studs) .. " Studs"
+    txtlblstud.TextStrokeTransparency = 0.5
+    txtlblstud.TextColor3 = Color3.new(255,255,255)
+end
+
+-- Clear ESP
+function ClearESP(espname)
+    for _,v in pairs(game.CoreGui:GetChildren()) do
+        if v.Name == espname and v:isA('BillboardGui') then
+            v:Destroy()
+        end
+    end
+end
+		
+
+
+Fluent:Notify({
+        Title = "",
+        Content = "ArDrak Hub",
+        SubContent = "Thank For use Hack", -- Optional
+        Duration = 5 -- Set to nil to make the notification not disappear
+    })
+    
+    --   Dark   Light  Aqua Amethyst
+local Tabs = {
+    updTab = Window:AddTab({ Title = "Update", Icon = "" }),
+}
+
+Tabs.updTab:AddParagraph({
+        Title = "update 7.3",
+        Content = ""
+    })
+    
+Tabs.updTab:AddButton({
+        Title = "Discord",
+        Description = "",
+        Callback = function()
+        setclipboard("https://discord.com/invite/t67WY4Ep") 
+        end
+    })
+
+--   Dark   Light  Aqua Amethyst
+local Tabs = {
+    HahaTab = Window:AddTab({ Title = "Walk", Icon = "" }),
+}
+
+Tabs.HahaTab:AddParagraph({
+        Title = "Walk Player",
+        Content = ""
+    })
+
+local Input = Tabs.HahaTab:AddInput("Input", {
+        Title = "Speed Player",
+        Default = "",
+        Placeholder = "16",
+        Numeric = false, -- Only allows numbers
+        Finished = false, -- Only calls callback when you press enter
+        Callback = function(Value)
+            TargetWalkspeed = Value
+       end
+    })
+    
+local Input = Tabs.HahaTab:AddInput("Input", {
+        Title = "Jumppower Player",
+        Default = "",
+        Placeholder = "50",
+        Numeric = false, -- Only allows numbers
+        Finished = false, -- Only calls callback when you press enter
+        Callback = function(Value)
+            Settings.Jump = Value 
+       end
+    })
+    
+    local Input = Tabs.HahaTab:AddInput("Input", {
+        Title = "business Player",
+        Default = "",
+        Placeholder = "-1.40",
+        Numeric = false, -- Only allows numbers
+        Finished = false, -- Only calls callback when you press enter
+        Callback = function(Value)
+            game.Players.LocalPlayer.Character.Humanoid.HipHeight = Value
+       end
+    })
+    
+    local Input = Tabs.HahaTab:AddInput("Input", {
+        Title = "Local Fov Player",
+        Default = "",
+        Placeholder = "70",
+        Numeric = false, -- Only allows numbers
+        Finished = false, -- Only calls callback when you press enter
+        Callback = function(Fov)
+            local ohString1 = "FieldOfView"
+				local ohNumber2 = Fov
+				game:GetService("ReplicatedStorage").Events.UpdateSetting:FireServer(ohString1, ohNumber2)
+       end
+    })
+    
+    Tabs.HahaTab:AddButton({
+        Title = "Noclip",
+        Description = "",
+        Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Hungtu2121/Loader/main/loader.game"))() 
+        end
+    })
+    
+Tabs.HahaTab:AddButton({
+        Title = "FullBright",
+        Description = "",
+        Callback = function(Value)
+        dofullbright()
+        end
+    })
+    
+--   Dark   Light  Aqua Amethyst
+local Tabs = {
+    NguTab = Window:AddTab({ Title = "Server", Icon = "" }),
+}
+
+    
+    --   Dark   Light  Aqua Amethyst
+local Tabs = {
+    MainTab = Window:AddTab({ Title = "Main", Icon = "" }),
+}
+
+local Toggle = Tabs.MainTab:AddToggle("MyToggle", {Title = "Water no dagame", Default = false })
+
+    Toggle:OnChanged(function(Value)
+        game.workspace.Water:Destroy()
+        game.workspace.BoatStages.NormalStages.CaveStage1.Water:Destroy()
+        game.workspace.BoatStages.NormalStages.CaveStage2.Water:Destroy()
+        game.workspace.BoatStages.NormalStages.CaveStage3.Water:Destroy()
+        game.workspace.BoatStages.NormalStages.CaveStage4.Water:Destroy()
+        game.workspace.BoatStages.NormalStages.CaveStage5.Water:Destroy()
+        game.workspace.BoatStages.NormalStages.CaveStage6.Water:Destroy()
+        game.workspace.BoatStages.NormalStages.CaveStage7.Water:Destroy()
+        game.workspace.BoatStages.NormalStages.CaveStage8.Water:Destroy()
+        game.workspace.BoatStages.NormalStages.CaveStage9.Water:Destroy()
+        game.workspace.BoatStages.NormalStages.ForestStage.Water:Destroy()
+        game.workspace.BoatStages.NormalStages.TheEnd.Water:Destroy()
+        game.workspace.BoatStages.OtherStages.CircusStage.Water:Destroy()
+        game.workspace.BoatStages.OtherStages.CrystalCaveStage.Water:Destroy()
+        game.workspace.BoatStages.OtherStages.EnchantedForestStage.Water:Destroy()
+        game.workspace.BoatStages.OtherStages.FlowerStage.Water:Destroy()
+        game.workspace.BoatStages.OtherStages.LightHouseStage.Water:Destroy()
+        game.workspace.BoatStages.OtherStages.SciFiCityStage.Water:Destroy()
+        game.workspace.BoatStages.OtherStages.ShipWreckedStage.Water:Destroy()
+        game.workspace.BoatStages.OtherStages.TrenchStage.Water:Destroy()
+        game.workspace.BoatStages.OtherStages.VaporwaveStage.Water:Destroy()
+      print("POV: U DONT HAVE AC IN UR GAME LLL")
+    end)
+    
+   
+    local Toggle = Tabs.MainTab:AddToggle("MyToggle", {Title = "No Cammera Shake", Default = false })
+
+    Toggle:OnChanged(function(Value)
+        NoCameraShake = Value
+	    camerashake()
+    end)
+    
+    local Toggle = Tabs.MainTab:AddToggle("MyToggle", {Title = "Auto Drink Cola (drinks everytime it runs out)", Default = false })
+
+    Toggle:OnChanged(function(Value)
+        AutoDrink = Value
+	    autodrink()
+    end)
+    
+    local Toggle = Tabs.MainTab:AddToggle("Fake Money", {Title = "Fake Money", Default = false })
+
+    Toggle:OnChanged(function(Value)
+        money = Value
+		freemoney()
+    end)
+    
+    local Toggle = Tabs.MainTab:AddToggle("MyToggle", {Title = "Auto Wistle", Default = false })
+
+    Toggle:OnChanged(function(Value)
+        autowistle = Value
+		autowistlefunction()
+    end)
+    
+ 
+--   Dark   Light  Aqua Amethyst
+local Tabs = {
+    MicsTab = Window:AddTab({ Title = "Auto Farm", Icon = "" }),
+}
+
+Tabs.MicsTab:AddParagraph({
+        Title = "Tab Auto Farm",
+        Content = "                 "
+    })
+
+local Toggle = Tabs.MicsTab:AddToggle("Toggle", {Title = "Auto Farm", Default = false })
+
+    Toggle:OnChanged(function(Value)
+        Settings.moneyfarm = Value
+    end)
+    
+local Toggle = Tabs.MicsTab:AddToggle("Toggle", {Title = "AFK Farm", Default = false })
+
+    Toggle:OnChanged(function(Value)
+        Settings.afkfarm = Value
+    end)
+    
+    local Toggle = Tabs.MicsTab:AddToggle("MyToggle", {Title = "Auto Respawn", Default = false })
+
+    Toggle:OnChanged(function(Value)
+        Settings.AutoRespawn = Value
+    end)
+
+Tabs.MicsTab:AddButton({
+        Title = "Respawn",
+        Description = "",
+        Callback = function()
+        game:GetService("ReplicatedStorage").Events.Respawn:FireServer()
+        end
+    })
+    
+ --   Dark   Light  Aqua Amethyst
+local Tabs = {
+    ExtraTab = Window:AddTab({ Title = "Extra", Icon = "" }),
+}
+
+Tabs.ExtraTab:AddButton({
+        Title = "Chat Spy",
+        Description = "",
+        Callback = function()
+        enabled = true
+				spyOnMyself = false
+				public = false
+				publicItalics = true
+				privateProperties = {
+					Color = Color3.fromRGB(0,255,255); 
+					Font = Enum.Font.SourceSansBold;
+					TextSize = 18;
+				}
+				local StarterGui = game:GetService("StarterGui")
+				local Players = game:GetService("Players")
+				local player = Players.LocalPlayer
+				local saymsg = game:GetService("ReplicatedStorage"):WaitForChild("DefaultChatSystemChatEvents"):WaitForChild("SayMessageRequest")
+				local getmsg = game:GetService("ReplicatedStorage"):WaitForChild("DefaultChatSystemChatEvents"):WaitForChild("OnMessageDoneFiltering")
+				local instance = (_G.chatSpyInstance or 0) + 1
+				_G.chatSpyInstance = instance
+
+				local function onChatted(p,msg)
+					if _G.chatSpyInstance == instance then
+						if p==player and msg:lower():sub(1,4)=="/spy" then
+							enabled = not enabled
+							wait(0.3)
+							privateProperties.Text = "{SPY "..(enabled and "EN" or "DIS").."ABLED}"
+							StarterGui:SetCore("ChatMakeSystemMessage",privateProperties)
+						elseif enabled and (spyOnMyself==true or p~=player) then
+							msg = msg:gsub("[\n\r]",''):gsub("\t",' '):gsub("[ ]+",' ')
+							local hidden = true
+							local conn = getmsg.OnClientEvent:Connect(function(packet,channel)
+								if packet.SpeakerUserId==p.UserId and packet.Message==msg:sub(#msg-#packet.Message+1) and (channel=="All" or (channel=="Team" and public==false and Players[packet.FromSpeaker].Team==player.Team)) then
+									hidden = false
+								end
+							end)
+							wait(1)
+							conn:Disconnect()
+							if hidden and enabled then
+								if public then
+									saymsg:FireServer((publicItalics and "/me " or '').."{SPY} [".. p.Name .."]: "..msg,"All")
+								else
+									privateProperties.Text = "{SPY} [".. p.Name .."]: "..msg
+									StarterGui:SetCore("ChatMakeSystemMessage",privateProperties)
+								end
+							end
+						end
+					end
+				end
+
+				for _,p in ipairs(Players:GetPlayers()) do
+					p.Chatted:Connect(function(msg) onChatted(p,msg) end)
+				end
+				Players.PlayerAdded:Connect(function(p)
+					p.Chatted:Connect(function(msg) onChatted(p,msg) end)
+				end)
+				privateProperties.Text = "{SPY "..(enabled and "EN" or "DIS").."ABLED}"
+				StarterGui:SetCore("ChatMakeSystemMessage",privateProperties)
+				local chatFrame = player.PlayerGui.Chat.Frame
+				chatFrame.ChatChannelParentFrame.Visible = true
+				chatFrame.ChatBarParentFrame.Position = chatFrame.ChatChannelParentFrame.Position+UDim2.new(UDim.new(),chatFrame.ChatChannelParentFrame.Size.Y)
+				Fluent:Notify({
+        Title = "Notification",
+        Content = "This is a notification",
+        SubContent = "SubContent", -- Optional
+        Duration = 5 -- Set to nil to make the notification not disappear
+    })
+    end
+    })
+    
+    Tabs.ExtraTab:AddButton({
+        Title = "Return Too Main Menu",
+        Description = "",
+        Callback = function()
+        game:GetService("ReplicatedStorage").Events.ReturnToMenu:FireServer()
+        end
+    })
+    
+    Tabs.ExtraTab:AddParagraph({
+        Title = "Mobs b2",
+        Content = ""
+    })
+    
+    Tabs.ExtraTab:AddButton({
+        Title = "Low Quality",
+        Description = "",
+        Callback = function()
+        local ohString1 = "LowQuality"
+				local ohBoolean2 = true
+				game:GetService("ReplicatedStorage").Events.UpdateSetting:FireServer(ohString1, ohBoolean2)
+				Fluent:Notify({
+        Title = "",
+        Content = "",
+        SubContent = "Pressed on the Low Quality", -- Optional
+        Duration = 2 -- Set to nil to make the notification not disappear
+    })
+        end
+    })
+    
+   
+    Tabs.ExtraTab:AddButton({
+        Title = "Free Cam [ Shirt + P ]",
+        Description = "Very important button",
+        Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Robobo2022/script/main/Freecam.lua"))()
+        Fluent:Notify({
+        Title = "",
+        Content = "",
+        SubContent = "success ", -- Optional
+        Duration = 2 -- Set to nil to make the notification not disappear
+    })
+        end
+    })
+    
+    local Toggle = Tabs.ExtraTab:AddToggle("MyToggle", {Title = "Spam Chat", Default = false })
+
+    Toggle:OnChanged(function(Value)
+        autochat = Value
+		SpamChat()
+    end)
+    
+    
+    
+    local ESP = loadstring(game:HttpGet("https://raw.githubusercontent.com/Hungtu2121/ArDrakxHub/main/ESP.lua%20(1).txt"))()
+ESP:Toggle(true)
+ESP.Players = false
+ESP.Tracers = false
+ESP.Boxes = false
+ESP.Names = false
+    
+    --   Dark   Light  Aqua Amethyst
+local Tabs = {
+    EspTab = Window:AddTab({ Title = "Esp", Icon = "" }),
+}
+
+local Toggle = Tabs.EspTab:AddToggle("MyToggle", {Title = "Enabel Esp", Default = false })
+
+    Toggle:OnChanged(function(Value)
+        ESP.Players = Value
+    end)
+    
+local Toggle = Tabs.EspTab:AddToggle("MyToggle", {Title = "Esp Box", Default = false })
+
+    Toggle:OnChanged(function(Value)
+        ESP.Boxes = Value
+    end)
+    
+local Toggle = Tabs.EspTab:AddToggle("MyToggle", {Title = "Esp Name", Default = false })
+
+    Toggle:OnChanged(function(Value)
+        ESP.Names = Value
+    end)
+    
+    
+    
+local Toggle = Tabs.EspTab:AddToggle("MyToggle", {Title = "Esp Tracers", Default = false })
+
+    Toggle:OnChanged(function(Value)
+        ESP.Tracers = Value
+    end)
+    
+    
+    
+    
+    
+    
+local Toggle = Tabs.EspTab:AddToggle("MyToggle", {Title = "Esp Bot", Default = false })
+
+    Toggle:OnChanged(function(bool)
+        AI_ESP = bool;
+    end)
+    
+    
+    game:GetService("Players").PlayerAdded:Connect(function(Player)
+    Player.CharacterAdded:Connect(function(Char)
+        if Highlights_Active then
+            ESP:AddOutline(Char)
+            ESP:AddNameTag(Char)
+        end
+    end)
+end)
+
+
+
+task.spawn(function()
+    while task.wait(0.05) do
+        if AI_ESP then
+            pcall(function()
+                ClearESP("AI_Tracker")
+                local GamePlayers = Workspace:WaitForChild("Game", 1337).Players;
+                for i,v in pairs(GamePlayers:GetChildren()) do
+                    if not game.Players:FindFirstChild(v.Name) then -- Is AI
+                        local studs = Player:DistanceFromCharacter(v.PrimaryPart.Position)
+                        Simple_Create(v.HumanoidRootPart, v.Name, "AI_Tracker", math.floor(studs + 0.5))
+                    end
+                end
+            end)
+        else
+            ClearESP("AI_Tracker");
+        end
+    end
+end)
+
+--   Dark   Light  Aqua Amethyst
+local Tabs = {
+    TpTab = Window:AddTab({ Title = "Teleport", Icon = "" }),
+}
+
+Tabs.TpTab:AddButton({
+        Title = "Main Game",
+        Description = "Very important button",
+        Callback = function()
+        local TeleportService = game:GetService('TeleportService')
+				GameId = 9872472334
+				TeleportService:Teleport(GameId, game.Players.LocalPlayer)
+        end
+    })
+    
+Tabs.TpTab:AddButton({
+        Title = "Casual",
+        Description = "Very important button",
+        Callback = function()
+        local TeleportService = game:GetService('TeleportService')
+				GameId = 10662542523
+				TeleportService:Teleport(GameId, game.Players.LocalPlayer)
+        end
+    })
+    
+Tabs.TpTab:AddButton({
+        Title = "Social Space",
+        Description = "Very important button",
+        Callback = function()
+        local TeleportService = game:GetService('TeleportService')
+				GameId = 10324347967
+				TeleportService:Teleport(GameId, game.Players.LocalPlayer)
+        end
+    })
+    
+Tabs.TpTab:AddButton({
+        Title = "Big Team",
+        Description = "Very important button",
+        Callback = function()
+        local TeleportService = game:GetService('TeleportService')
+				GameId = 10324346056
+				TeleportService:Teleport(GameId, game.Players.LocalPlayer)
+        end
+    })
+    
+Tabs.TpTab:AddButton({
+        Title = "Team DeathMatch",
+        Description = "Very important button",
+        Callback = function()
+        local TeleportService = game:GetService('TeleportService')
+				GameId = 10808838353
+				TeleportService:Teleport(GameId, game.Players.LocalPlayer)
+        end
+    })
+    
+Tabs.TpTab:AddButton({
+        Title = "Vc Only",
+        Description = "Very important button",
+        Callback = function()
+        local TeleportService = game:GetService('TeleportService')
+				GameId = 10808838353
+				TeleportService:Teleport(GameId, game.Players.LocalPlayer)
+        end
+    })
