@@ -2467,27 +2467,11 @@ if game:GetService("ReplicatedStorage").Effect.Container:FindFirstChild("Respawn
 end
 
 local Farming = Tabs.Main:AddSection("Farming")
-local listfastattack = {'Mera Fast'}
-
-    local DropdownDelayAttack = Tabs.Main:AddDropdown("DropdownDelayAttack", {
-        Title = "Select Fast attack",
-        Description = "",
-        Values = listfastattack,
-        Multi = false,
-        Default = 1,
-    })
-    DropdownDelayAttack:SetValue("Fast Attack")
-    DropdownDelayAttack:OnChanged(function(Value)
-    _G.FastAttackZueszYTB_Mode = Value
-	if _G.FastAttackZueszYTB_Mode == "Mera Fast" then
-		_G.Fast_Delay = 0.0
-	end
-end)
 
     local DropdownSelectWeapon = Tabs.Main:AddDropdown("DropdownSelectWeapon", {
         Title = "Chọn Vũ Khí",
         Description = "",
-        Values = {'Tay','Kiếm','Trái Ác Quỷ'},
+        Values = {'Melee','Sword','Fruit'},
         Multi = false,
         Default = 1,
     })
@@ -6832,7 +6816,22 @@ end)
 end
 
 local SettingFarm = Tabs.Setting:AddSection("Farming")
+local listfastattack = {'Mera Fast'}
 
+    local DropdownDelayAttack = Tabs.Setting:AddDropdown("DropdownDelayAttack", {
+        Title = "Select Fast attack",
+        Description = "",
+        Values = listfastattack,
+        Multi = false,
+        Default = 1,
+    })
+    DropdownDelayAttack:SetValue("Fast Attack")
+    DropdownDelayAttack:OnChanged(function(Value)
+    _G.FastAttackZueszYTB_Mode = Value
+	if _G.FastAttackZueszYTB_Mode == "Mera Fast" then
+		_G.Fast_Delay = 0.0
+	end
+end)
 
     local ToggleBringMob = Tabs.Setting:AddToggle("ToggleBringMob", {Title = "Gom Quái",Description = "", Default = true })
     ToggleBringMob:OnChanged(function(Value)
