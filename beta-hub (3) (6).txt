@@ -12,9 +12,10 @@ local Tabs = {
     Main = Window:AddTab({ Title = "Main", Icon = "" }),
     Concac = Window:AddTab({ Title = "item", Icon = "" }),
     Sea = Window:AddTab({ Title = "Sea Event", Icon = "" }),
+    Bian = Window:AddTab({ Title = "Mirare", Icon = "" }),
     Stats = Window:AddTab({ Title = "Stats", Icon = "" }),
     Player = Window:AddTab({ Title = "Player", Icon = "" }),
-    Teleport = Window:AddTab({ Title = "Island", Icon = "" }),
+    Teleport = Window:AddTab({ Title = "Teleport", Icon = "" }),
     Fruit = Window:AddTab({ Title = "Fruit", Icon = "" }),
     Raid = Window:AddTab({ Title = "Raid", Icon = "" }),
     Race = Window:AddTab({ Title = "Race V4", Icon = "" }),
@@ -2044,7 +2045,7 @@ end
     local Distance = (RealTarget.Position - game:GetService("Players").LocalPlayer.Character:WaitForChild("HumanoidRootPart").Position)
         .Magnitude
     if Distance < 1000 then
-        Speed = 620
+        Speed = 540
     elseif Distance >= 1000 then
         Speed = 320
     end
@@ -2678,7 +2679,7 @@ local Main = Tabs.Main:AddSection("Tab Farm ")
         end
       end)
       
-      local Toggle = Tabs.Main:AddToggle("MyToggle", {Title = "Toggle", Default = false })
+      local Toggle = Tabs.Main:AddToggle("MyToggle", {Title = "Redeem code", Default = false })
 
     Toggle:OnChanged(function(Value)
         RedeemCode = Value
@@ -2737,6 +2738,8 @@ local Main = Tabs.Main:AddSection("Tab Farm ")
             end
         end
     end
+    
+local Chest = Tabs.Main:AddSection("Tab Chest")
 
 local Mastery = Tabs.Main:AddSection("Mastery Farm")
     local DropdownMastery = Tabs.Main:AddDropdown("DropdownMastery", {
@@ -2920,7 +2923,6 @@ end
 end
 end)
 
-local MiscFarm = Tabs.Main:AddSection("Farm Khác")
 
 if Third_Sea then
 local ToggleRandomBone = Tabs.Main:AddToggle("ToggleRandomBone", {Title = "Đổi xương",Description = "", Default = false })
@@ -3309,10 +3311,10 @@ local boss = Tabs.Main:AddSection("Farm Boss")
       end)
 
       if Third_Sea then
-      local RoughSea = Tabs.Main:AddSection(" Kitsune ")
+      local RoughSea = Tabs.Sea:AddSection(" Kitsune ")
 
 
-      local ToggleEspKitsune = Tabs.Main:AddToggle("ToggleEspKitsune", {Title = "Định vị Đảo kisune",Description = "", Default = false })
+      local ToggleEspKitsune = Tabs.Sea:AddToggle("ToggleEspKitsune", {Title = "Esp ilands Kitsune",Description = "định vị đảo kitsune", Default = true })
       ToggleEspKitsune:OnChanged(function(Value)
         KitsuneIslandEsp = Value
         while KitsuneIslandEsp do wait()
@@ -3355,7 +3357,7 @@ local boss = Tabs.Main:AddSection("Farm Boss")
         end
     end
 
-      local ToggleTPKitsune = Tabs.Main:AddToggle("ToggleTPKitsune", {Title = "Di Chuyển Đến Đảo Kisune",Description = "", Default = false })
+      local ToggleTPKitsune = Tabs.Sea:AddToggle("ToggleTPKitsune", {Title = "Teleport Kitsune",Description = "Bay đến đảo kitsune", Default = false })
       ToggleTPKitsune:OnChanged(function(Value)
         _G.TweenToKitsune = Value
       end)
@@ -3381,7 +3383,7 @@ local boss = Tabs.Main:AddSection("Farm Boss")
     end)
 
 
-      local ToggleCollectAzure = Tabs.Main:AddToggle("ToggleCollectAzure", {Title = "Nhặt Hồn Lửa",Description = "", Default = false })
+      local ToggleCollectAzure = Tabs.Sea:AddToggle("ToggleCollectAzure", {Title = "Pick up the soul Kitsune",Description = "Nhặt linh hồn", Default = false })
       ToggleCollectAzure:OnChanged(function(Value)
          _G.CollectAzure = Value
       end)
@@ -3401,9 +3403,9 @@ end)
 end
 
 if Third_Sea then
-    local RoughSea = Tabs.Main:AddSection("Rough Sea")
+    local RoughSea = Tabs.Sea:AddSection("Sea best")
 
-    local ToggleSailBoat = Tabs.Main:AddToggle("ToggleSailBoat", {Title = "Mua Thuyền + Ngồi Vào",Description = "", Default = false })
+    local ToggleSailBoat = Tabs.Sea:AddToggle("ToggleSailBoat", {Title = "Buy a boat + get in",Description = "mua thuyền tự động ngồi", Default = false })
     ToggleSailBoat:OnChanged(function(Value)
         _G.SailBoat = Value
     end)
@@ -3464,7 +3466,7 @@ if Third_Sea then
 	end)
 	
 
-    local ToggleTerrorshark = Tabs.Main:AddToggle("ToggleTerrorshark", {Title = " Giết Terrorshark",Description = "", Default = false })
+    local ToggleTerrorshark = Tabs.Sea:AddToggle("ToggleTerrorshark", {Title = "Kill Terrorsahark",Description = "đánh cá mập ngu", Default = false })
 
     ToggleTerrorshark:OnChanged(function(Value)
         _G.AutoTerrorshark = Value
@@ -3505,7 +3507,7 @@ if Third_Sea then
 
 
 
-     local TogglePiranha = Tabs.Main:AddToggle("TogglePiranha", {Title = " Giết Piranha",Description = "", Default = false })
+     local TogglePiranha = Tabs.Sea:AddToggle("TogglePiranha", {Title = " Kill Piranha",Description = "đánh piranha", Default = false })
 
      TogglePiranha:OnChanged(function(Value)
         _G.farmpiranya = Value
@@ -3547,7 +3549,7 @@ if Third_Sea then
 
 
 
-     local ToggleShark = Tabs.Main:AddToggle("ToggleShark", {Title = "Giết Cá Mập",Description = "", Default = false })
+     local ToggleShark = Tabs.Sea:AddToggle("ToggleShark", {Title = "Kill Shark",Description = "đánh cá mập nhỏ ngu", Default = false })
      ToggleShark:OnChanged(function(Value)
         _G.AutoShark = Value
      end)
@@ -3588,7 +3590,7 @@ if Third_Sea then
 
 
 
-    local ToggleFishCrew = Tabs.Main:AddToggle("ToggleFishCrew", {Title = " Giết Fish Crew",Description = "", Default = false })
+    local ToggleFishCrew = Tabs.Sea:AddToggle("ToggleFishCrew", {Title = " Kill Fish Crew",Description = "Đánh Đội Cá", Default = false })
     ToggleFishCrew:OnChanged(function(Value)
        _G.AutoFishCrew = Value
     end)
@@ -3634,7 +3636,7 @@ if Third_Sea then
 
 
 
-    local ToggleShip = Tabs.Main:AddToggle("ToggleShip", {Title = "Đánh Thuyền Hải Tặc",Description = "", Default = false })
+    local ToggleShip = Tabs.Sea:AddToggle("ToggleShip", {Title = "Kill Pirate ship",Description = "đánh thuyền ngu", Default = false })
     ToggleShip:OnChanged(function(Value)
         _G.Ship = Value
        end)
@@ -3674,7 +3676,7 @@ end)
 
 
 
-    local ToggleGhostShip = Tabs.Main:AddToggle("ToggleGhostShip", {Title = "Đánh Thuyền Ma",Description = "",Default = false })
+    local ToggleGhostShip = Tabs.Sea:AddToggle("ToggleGhostShip", {Title = "Kill Ghost ShipĐánh thuyền ma",Description = "",Default = false })
     ToggleGhostShip:OnChanged(function(Value)
         _G.GhostShip = Value
        end)
@@ -3794,67 +3796,12 @@ spawn(function()
       end)
 
 
-    local AutoElite = Tabs.Main:AddSection("Farm Boss Bí Ẩn")
-
-    local ToggleElite = Tabs.Main:AddToggle("ToggleElite", {Title = "Đánh Boss Bí Ẩn",Description = "", Default = false })
-
-    ToggleElite:OnChanged(function(Value)
-       _G.AutoElite = Value
-       end)
-       Options.ToggleElite:SetValue(false)
-       spawn(function()
-           while task.wait() do
-               if _G.AutoElite then
-                   pcall(function()
-                       if game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == true then
-                           if string.find(game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Container.QuestTitle.Title.Text,"Diablo") or string.find(game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Container.QuestTitle.Title.Text,"Deandre") or string.find(game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Container.QuestTitle.Title.Text,"Urban") then
-                               if game:GetService("Workspace").Enemies:FindFirstChild("Diablo") or game:GetService("Workspace").Enemies:FindFirstChild("Deandre") or game:GetService("Workspace").Enemies:FindFirstChild("Urban") then
-                                   for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
-                                       if v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
-                                           if v.Name == "Diablo" or v.Name == "Deandre" or v.Name == "Urban" then
-                                            repeat wait(_G.Fast_Delay)
-                                                AttackNoCoolDown()
-                                                   EquipTool(SelectWeapon)
-                                                   AutoHaki()
-                                                   toTarget(v.HumanoidRootPart.CFrame * CFrame.new(posX,posY,posZ))
-                                                   MonsterPosition = v.HumanoidRootPart.CFrame
-                                                   v.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
-                                                   v.Humanoid.JumpPower = 0
-                                                   v.Humanoid.WalkSpeed = 0
-                                                   v.HumanoidRootPart.CanCollide = false
-                                                   v.HumanoidRootPart.Size = Vector3.new(1, 1, 1)
-                                               until _G.AutoElite == false or v.Humanoid.Health <= 0 or not v.Parent
-                                           end
-                                       end
-                                   end
-                               else
-                                 
-                                   if game:GetService("ReplicatedStorage"):FindFirstChild("Diablo") then
-                                    toTarget(game:GetService("ReplicatedStorage"):FindFirstChild("Diablo").HumanoidRootPart.CFrame * CFrame.new(posX,posY,posZ))
-                                   elseif game:GetService("ReplicatedStorage"):FindFirstChild("Deandre") then
-                                    toTarget(game:GetService("ReplicatedStorage"):FindFirstChild("Deandre").HumanoidRootPart.CFrame * CFrame.new(posX,posY,posZ))
-                                   elseif game:GetService("ReplicatedStorage"):FindFirstChild("Urban") then
-                                    toTarget(game:GetService("ReplicatedStorage"):FindFirstChild("Urban").HumanoidRootPart.CFrame * CFrame.new(posX,posY,posZ))
-                                   end
-   
-                               end
-                         
-                           end
-                       else
-                           game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("EliteHunter")
-                       end
-                   end)
-               end
-           end
-       end)
-    end
-
 
 if Third_Sea then
-    local Sea = Tabs.Main:AddSection("Sea Beast")
+    local Sea = Tabs.Sea:AddSection("Sea Beast")
 
 
-local ToggleSeaBeAst = Tabs.Main:AddToggle("ToggleSeaBeAst", {Title = "Treo + Đánh Thủy Quái",Description = "", Default = false })
+local ToggleSeaBeAst = Tabs.Sea:AddToggle("ToggleSeaBeAst", {Title = "Hang + Sea best",Description = "Treo đánh sea", Default = false })
 
 ToggleSeaBeAst:OnChanged(function(Value)
     _G.AutoSeaBeast = Value
@@ -3969,7 +3916,7 @@ ToggleSeaBeAst:OnChanged(function(Value)
         end
     end)
 
-local ToggleAutoW = Tabs.Main:AddToggle("ToggleAutoW", {Title = "Tự Động Nhấn W",Description = "", Default = false })
+local ToggleAutoW = Tabs.Sea:AddToggle("ToggleAutoW", {Title = "Tự Động Nhấn W",Description = "", Default = false })
 ToggleAutoW:OnChanged(function(Value)
     _G.AutoW = Value
     end)
@@ -3987,12 +3934,12 @@ ToggleAutoW:OnChanged(function(Value)
 
 
 
-    local AutoMysticIsland = Tabs.Main:AddSection("Đảo Bí Ẩn")
+    local AutoMysticIsland = Tabs.Bian:AddSection("Mirare")
 
 
-    Tabs.Main:AddButton({
-        Title = "Bay Đến Đảo Bí Ẩn",
-        Description = "",
+    Tabs.Bian:AddButton({
+        Title = "Teleport Mirare",
+        Description = "Bay đến đảo bí ẩn",
         Callback = function()
             TweenMirage()
         end
@@ -4015,9 +3962,9 @@ ToggleAutoW:OnChanged(function(Value)
     end
 
 
-    Tabs.Main:AddButton({
-        Title = "Bay đến Chỗ Cao Nhất",
-        Description = "",
+    Tabs.Bian:AddButton({
+        Title = "Move to the highest place",
+        Description = "Bay đến chỗ cao của đảo",
         Callback = function()
             TwenetoHighestPoint()
         end
@@ -4042,7 +3989,7 @@ ToggleAutoW:OnChanged(function(Value)
         end
     end
 
-local ToggleTweenGear = Tabs.Main:AddToggle("ToggleTweenGear", {Title = "Nhặt Bánh Răng",Description = "", Default = false })
+local ToggleTweenGear = Tabs.Bian:AddToggle("ToggleTweenGear", {Title = "Pick up gear",Description = "Lụm bánh răng ", Default = false })
 ToggleTweenGear:OnChanged(function(Value)
     _G.TweenToGear = Value
 end) 
@@ -4069,7 +4016,7 @@ spawn(function()
 
 
 
-    local Togglelockmoon = Tabs.Main:AddToggle("Togglelockmoon", {Title = "Nhìn Trăng + Bật Tộc",Description = "", Default = false })
+    local Togglelockmoon = Tabs.Bian:AddToggle("Togglelockmoon", {Title = "Lock Moon + Use Race v3",Description = "Nhìn trăng bật tộc", Default = false })
     Togglelockmoon:OnChanged(function(Value)
         _G.AutoLockMoon = Value
     end) 
@@ -4101,14 +4048,14 @@ spawn(function()
     end)
 
 
-local ToggleMirage = Tabs.Main:AddToggle("ToggleMirage", {Title = "Treo Đảo Bí Ẩn",Description = "", Default = false })
+local ToggleMirage = Tabs.Bian:AddToggle("ToggleMirage", {Title = "Hanging mysterious island",Description = "Treo đảo bí ẩn", Default = false })
 ToggleMirage:OnChanged(function(Value)
  _G.AutoSeaBeast = Value
 end) 
 
  Options.ToggleMirage:SetValue(false)
 
- local AutoW = Tabs.Main:AddToggle("AutoW", {Title = "Press the keyW",Description = "", Default = false })
+ local AutoW = Tabs.Bian:AddToggle("AutoW", {Title = "Press the keyW",Description = "", Default = false })
  AutoW:OnChanged(function(Value)
     _G.AutoW = Value
      end)
@@ -4167,6 +4114,10 @@ local ToggleCastleRaid = Tabs.Concac:AddToggle("ToggleCastleRaid", {
             end
         end
         end)
+        
+        
+
+    
 
 
     local ToggleHallow = Tabs.Concac:AddToggle("ToggleHallow", {Title = "Cày Lưỡi Hái Bóng Tối",Description = "", Default = false })
