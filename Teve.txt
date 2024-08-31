@@ -2466,62 +2466,69 @@ if game:GetService("ReplicatedStorage").Effect.Container:FindFirstChild("Respawn
 	game:GetService("ReplicatedStorage").Effect.Container.Respawn:Destroy()
 end
 
-local Farming = Tabs.Main:AddSection("Farming")
+local Main = Tabs.Main:AddSection("Tab Setting Farm")
 
-    local DropdownSelectWeapon = Tabs.Main:AddDropdown("DropdownSelectWeapon", {
-        Title = "Chọn Vũ Khí",
-        Description = "",
-        Values = {'Melee','Sword','Fruit'},
-        Multi = false,
-        Default = 1,
-    })
-    DropdownSelectWeapon:SetValue('Melee')
-    DropdownSelectWeapon:OnChanged(function(Value)
-        ChooseWeapon = Value
+local ToggleBringMob = Tabs.Main:AddToggle("ToggleBringMob", {Title = "Bring Mods Boss",Description = "", Default = true })
+    ToggleBringMob:OnChanged(function(Value)
+        _G.BringMob = Value
     end)
-    task.spawn(function()
-        while wait() do
+    Options.ToggleBringMob:SetValue(true)
+            task.spawn(function()
+                while task.wait() do
+             if _G.BringMob and bringmob then
             pcall(function()
-                if ChooseWeapon == "Melee" then
-                    for i ,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
-                        if v.ToolTip == "Melee" then
-                            if game.Players.LocalPlayer.Backpack:FindFirstChild(tostring(v.Name)) then
-                                SelectWeapon = v.Name
-                            end
-                        end
-                    end
-                elseif ChooseWeapon == "Sword" then
-                    for i ,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
-                        if v.ToolTip == "Sword" then
-                            if game.Players.LocalPlayer.Backpack:FindFirstChild(tostring(v.Name)) then
-                                SelectWeapon = v.Name
-                            end
-                        end
-                    end
-                elseif ChooseWeapon == " Blox Fruit" then
-                    for i ,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
-                        if v.ToolTip == "Blox Fruit" then
-                            if game.Players.LocalPlayer.Backpack:FindFirstChild(tostring(v.Name)) then
-                                SelectWeapon = v.Name
-                            end
-                        end
-                    end
-                else
-                    for i ,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
-                        if v.ToolTip == "Melee" then
-                            if game.Players.LocalPlayer.Backpack:FindFirstChild(tostring(v.Name)) then
-                                SelectWeapon = v.Name
-                            end
-                        end
-                    end
+                for i,v in pairs(game.Workspace.Enemies:GetChildren()) do
+                if v.Name == MonFarm and (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 350 then
+                if InMyNetWork(v.HumanoidRootPart) then
+                v.HumanoidRootPart.CFrame = FarmPos
+                v.Humanoid.JumpPower = 0
+                v.Humanoid.WalkSpeed = 0
+                v.HumanoidRootPart.Size = Vector3.new(60,60,60)
+                v.HumanoidRootPart.CanCollide = false
+                v.Head.CanCollide = false
+                if v.Humanoid:FindFirstChild("Animator") then
+                v.Humanoid.Animator:Destroy()
                 end
-            end)
-        end
+                end
+                end
+                end
+                end)
+              end
+              end
+              end)
+            
+            task.spawn(function()
+              while true do wait()
+              if setscriptable then
+              setscriptable(game.Players.LocalPlayer,"SimulationRadius",true)
+              end
+              if sethiddenproperty then
+              sethiddenproperty(game.Players.LocalPlayer,"SimulationRadius",math.huge)
+              end
+              end
+              end)
+            
+            function InMyNetWork(object)
+            if isnetworkowner then
+            return isnetworkowner(object)
+            else
+              if (object.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 350 then
+            return true
+            end
+            return false
+            end
+            end
+            
+            local ToggleBypassTP = Tabs.Main:AddToggle("ToggleBypassTP", {Title = "Di Chuyển Dạng Reset",Description = "", Default = false })
+    ToggleBypassTP:OnChanged(function(Value)
+        BypassTP = Value
     end)
-
+    Options.ToggleBypassTP:SetValue(false)
+    
+    local Main = Tabs.Main:AddSection("Tab Farm")
 
     local ToggleLevel = Tabs.Main:AddToggle("ToggleLevel", {
-        Title = "Cày Cấp Độ",
+        Title = "Farm Lever",
         Description = "",
         Default = false })
     ToggleLevel:OnChanged(function(Value)
@@ -2714,136 +2721,8 @@ local Farming = Tabs.Main:AddSection("Farming")
         end
         end)
 
-game:GetService('RunService').RenderStepped:connect(function()           
-    if _G.chestsea3 then
-   if game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("God's Chalice") then 
-  _G.chestsea3 = false                      
-   elseif not game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("God's Chalice") then 
-     if game:GetService("Workspace"):FindFirstChild("Chest1") then
-    TPchest( game:GetService("Workspace"):FindFirstChild("Chest1").CFrame)
-    end
-    if game:GetService("Workspace"):FindFirstChild("Chest2") then
-    TPchest( game:GetService("Workspace"):FindFirstChild("Chest2").CFrame)
-    end
-    if game:GetService("Workspace"):FindFirstChild("Chest3") then
-TPchest( game:GetService("Workspace"):FindFirstChild("Chest3").CFrame)
-end
-end
-end
-end)
-if game.PlaceId == 7449423635 then
-spawn(function()
-   while task.wait(3.5) do
-       pcall(function()
-       if not   game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("God's Chalice") then
-           if _G.chestsea3 then
-               game:GetService("VirtualInputManager"):SendKeyEvent(true,"Q",false,game)
-           game.Players.LocalPlayer.Character.Humanoid.Health = 0
-           end
-           wait(5)
-          end 
-        end)
-     end
-     end) 
-    end
-game:GetService('RunService').RenderStepped:connect(function()           
-    if _G.chestsea2 then
-   if game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Fist of Darkness") then 
-       game:GetService("VirtualInputManager"):SendKeyEvent(true,"Q",false,game)
-  _G.chestsea2 = false                         
-   elseif not game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Fist of Darkness") then 
-     if game:GetService("Workspace"):FindFirstChild("Chest1") then
-    TPchest( game:GetService("Workspace"):FindFirstChild("Chest1").CFrame)
-    end
-    if game:GetService("Workspace"):FindFirstChild("Chest2") then
-    TPchest( game:GetService("Workspace"):FindFirstChild("Chest2").CFrame)
-    end
-    if game:GetService("Workspace"):FindFirstChild("Chest3") then
-TPchest( game:GetService("Workspace"):FindFirstChild("Chest3").CFrame)
-end
-end
-end
-end)
-if game.PlaceId == 4442272183 then 
-spawn(function()
-   while task.wait(3.5) do
-       pcall(function()
-       if not   game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Fist of Darkness") then
-           if _G.chestsea2 then
-           game.Players.LocalPlayer.Character.Humanoid.Health = 0
-           end
-           wait(5)
-          end 
-        end) 
-    end 
-end) 
-end
-           
-function TPchest(P1)          
-            local Distance = (P1.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
-              if Distance >= 0 then
-                Speed = 1200000
-                end
-                local tween =  game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(Distance/Speed), {CFrame = P1  }) tween:Play()                                    
-             end
-
-
-if Third_Sea then
-local ToggleChest = Tabs.Main:AddToggle("ToggleChest", {
-    Title = "Nhặt Rương dừng Khi Có Vật Phẩm [Dịch Chuyển]",
-    Description = "", 
-    Default = false })
-ToggleChest:OnChanged(function(Value)
-    _G.chestsea3 = Value
-end)
-Options.ToggleChest:SetValue(false)
-end
-
-if Second_Sea then
-local ToggleChest = Tabs.Main:AddToggle("ToggleChest", {
-    Title = "Nhặt Rương dừng Khi Có Vật Phẩm [Dịch Chuyển]",
-    Description = "", 
-    Default = false })
-ToggleChest:OnChanged(function(Value)
-    _G.chestsea2 = Value
-end)
-Options.ToggleChest:SetValue(false)
-end
-
-local ToggleChestTween = Tabs.Main:AddToggle("ToggleChestTween", {
-    Title = "Nhặt Rương [Bay]",
-    Description = "", 
-    Default = false })
-ToggleChestTween:OnChanged(function(Value)
-    AutoFarmChest = Value
-end)
-Options.ToggleChestTween:SetValue(false)
-_G.MagnitudeAdd = 0
-spawn(function()
-	while wait() do 
-		if AutoFarmChest then
-			for i,v in pairs(game:GetService("Workspace"):GetChildren()) do 
-				if v.Name:find("Chest") then
-					if game:GetService("Workspace"):FindFirstChild(v.Name) then
-						if (v.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 5000+_G.MagnitudeAdd then
-							repeat wait()
-								if game:GetService("Workspace"):FindFirstChild(v.Name) then
-									Tween(v.CFrame)
-								end
-							until AutoFarmChest == false or not v.Parent
-							Tween(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame)
-							_G.MagnitudeAdd = _G.MagnitudeAdd+1500
-							break
-						end
-					end
-				end
-			end
-		end
-	end
-end)
-
       Tabs.Main:AddButton({
-        Title = "Nhập Hết Code",
+        Title = "Redeem code",
         Description = "",
         Callback = function()
             RedeemCode()
@@ -3090,7 +2969,7 @@ local MiscFarm = Tabs.Main:AddSection("Farm Khác")
 
 if Third_Sea then
 local ToggleBone = Tabs.Main:AddToggle("ToggleBone", {
-    Title = "Cày Xương",
+    Title = "Farm Bone",
     Description = "", 
     Default = false })
 ToggleBone:OnChanged(function(Value)
@@ -6833,63 +6712,62 @@ local listfastattack = {'Mera Fast'}
 	end
 end)
 
-    local ToggleBringMob = Tabs.Setting:AddToggle("ToggleBringMob", {Title = "Gom Quái",Description = "", Default = true })
-    ToggleBringMob:OnChanged(function(Value)
-        _G.BringMob = Value
-    end)
-    Options.ToggleBringMob:SetValue(true)
-            task.spawn(function()
-                while task.wait() do
-             if _G.BringMob and bringmob then
-            pcall(function()
-                for i,v in pairs(game.Workspace.Enemies:GetChildren()) do
-                if v.Name == MonFarm and (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 350 then
-                if InMyNetWork(v.HumanoidRootPart) then
-                v.HumanoidRootPart.CFrame = FarmPos
-                v.Humanoid.JumpPower = 0
-                v.Humanoid.WalkSpeed = 0
-                v.HumanoidRootPart.Size = Vector3.new(60,60,60)
-                v.HumanoidRootPart.CanCollide = false
-                v.Head.CanCollide = false
-                if v.Humanoid:FindFirstChild("Animator") then
-                v.Humanoid.Animator:Destroy()
-                end
-                end
-                end
-                end
-                end)
-              end
-              end
-              end)
-            
-            task.spawn(function()
-              while true do wait()
-              if setscriptable then
-              setscriptable(game.Players.LocalPlayer,"SimulationRadius",true)
-              end
-              if sethiddenproperty then
-              sethiddenproperty(game.Players.LocalPlayer,"SimulationRadius",math.huge)
-              end
-              end
-              end)
-            
-            function InMyNetWork(object)
-            if isnetworkowner then
-            return isnetworkowner(object)
-            else
-              if (object.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 350 then
-            return true
-            end
-            return false
-            end
-            end
-            
+local Farming = Tabs.Setting:AddSection("Farming")
 
-    local ToggleBypassTP = Tabs.Setting:AddToggle("ToggleBypassTP", {Title = "Di Chuyển Dạng Reset",Description = "", Default = false })
-    ToggleBypassTP:OnChanged(function(Value)
-        BypassTP = Value
+    local DropdownSelectWeapon = Tabs.Main:AddDropdown("DropdownSelectWeapon", {
+        Title = "Sellect Waepon",
+        Description = "",
+        Values = {'Melee','Sword','Fruit'},
+        Multi = false,
+        Default = 1,
+    })
+    DropdownSelectWeapon:SetValue('Melee')
+    DropdownSelectWeapon:OnChanged(function(Value)
+        ChooseWeapon = Value
     end)
-    Options.ToggleBypassTP:SetValue(false)
+    task.spawn(function()
+        while wait() do
+            pcall(function()
+                if ChooseWeapon == "Melee" then
+                    for i ,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+                        if v.ToolTip == "Melee" then
+                            if game.Players.LocalPlayer.Backpack:FindFirstChild(tostring(v.Name)) then
+                                SelectWeapon = v.Name
+                            end
+                        end
+                    end
+                elseif ChooseWeapon == "Sword" then
+                    for i ,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+                        if v.ToolTip == "Sword" then
+                            if game.Players.LocalPlayer.Backpack:FindFirstChild(tostring(v.Name)) then
+                                SelectWeapon = v.Name
+                            end
+                        end
+                    end
+                elseif ChooseWeapon == " Blox Fruit" then
+                    for i ,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+                        if v.ToolTip == "Blox Fruit" then
+                            if game.Players.LocalPlayer.Backpack:FindFirstChild(tostring(v.Name)) then
+                                SelectWeapon = v.Name
+                            end
+                        end
+                    end
+                else
+                    for i ,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+                        if v.ToolTip == "Melee" then
+                            if game.Players.LocalPlayer.Backpack:FindFirstChild(tostring(v.Name)) then
+                                SelectWeapon = v.Name
+                            end
+                        end
+                    end
+                end
+            end)
+        end
+    end)
+
+   
+
+    
 
 
 local ToggleRemove = Tabs.Setting:AddToggle("ToggleRemove", {Title = "Ẩn Dame Đánh Quái",Description = "", Default = true })
